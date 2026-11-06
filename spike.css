@@ -1,0 +1,33 @@
+* { box-sizing: border-box; }
+body { font: 18px/1.4 system-ui, sans-serif; margin: 0 auto; max-width: 40rem; padding: 1rem; color: #111; background: #fafafa; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.25rem; margin-top: 0; }
+section { background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+label { display: block; margin: 0.75rem 0; font-weight: 600; }
+label.check { font-weight: 400; display: flex; gap: 0.5rem; align-items: center; }
+input[type=checkbox] { width: 1.5rem; height: 1.5rem; }
+input[type=text], input[type=url], input[type=password], select, textarea {
+  display: block; width: 100%; font: inherit; padding: 0.6rem; margin-top: 0.25rem; border: 1px solid #999; border-radius: 8px;
+}
+button {
+  display: block; width: 100%; min-height: 3.25rem; margin: 0.5rem 0; font: inherit; font-weight: 600;
+  border: 0; border-radius: 10px; background: #1a5fb4; color: #fff;
+}
+button:disabled { opacity: 0.5; }
+button.secondary { background: #e6e6e6; color: #111; }
+button.primary { background: #26a269; }
+button.rec { background: #c01c28; }
+.row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.row button { flex: 1 1 30%; width: auto; }
+audio { width: 100%; margin: 0.5rem 0; }
+.hint { color: #555; }
+.status { min-height: 1.4em; }
+.status.good { color: #26a269; }
+.status.bad { color: #c01c28; }
+pre { white-space: pre-wrap; word-break: break-word; font-size: 0.85rem; background: #f3f3f3; padding: 0.5rem; border-radius: 8px; }
+#logList { font-size: 0.8rem; padding-left: 1.25rem; word-break: break-word; }
+.mode { font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 8px; background: #fff3cd; }
+.mode.app { background: #d4f4dd; }
+input[type=file] { display: block; width: 100%; font: inherit; margin-top: 0.25rem; }
+#photoPreview { display: block; max-width: 100%; margin: 0.5rem 0; }
+#photoPreview:not([src]) { display: none; }

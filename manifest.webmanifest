@@ -1,0 +1,9 @@
+{
+  "name": "Phone test",
+  "short_name": "Phone test",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#1a5fb4"
+}

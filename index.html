@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Phone test">
+  <title>Phone test page</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="spike.css">
+</head>
+<body>
+  <h1>Phone test page</h1>
+  <p id="modeBanner" class="mode">Running in: ...</p>
+  <p class="hint">Do each part from top to bottom. Tap <b>Save results</b> at the end of each part.</p>
+
+  <section id="connection">
+    <h2>0. Install + connect</h2>
+    <div id="safariSetup" hidden>
+      <p class="hint">Setup code received. Tap <b>Copy setup code</b>. Then tap <b>Share</b> → <b>Add to Home Screen</b> → open <b>Phone test</b> from the home screen → tap <b>Paste setup code</b>.</p>
+      <button id="copySetup">Copy setup code</button>
+    </div>
+    <button id="pasteSetup">Paste setup code</button>
+    <label>Setup code<input id="setupCode" type="password" autocomplete="off" placeholder="Or paste the setup code here"></label>
+    <button id="useSetup" class="secondary">Use code</button>
+    <p class="hint">Closing the app (swipe it away) forgets the connection. Open it again and tap <b>Paste setup code</b>.</p>
+    <label>Server link<input id="connUrl" type="url" autocomplete="off" placeholder="Paste the /exec link"></label>
+    <label>Token<input id="connToken" type="password" autocomplete="off" placeholder="Paste the token"></label>
+    <button id="connUse" class="secondary">Use these</button>
+    <button id="connPing">Ping</button>
+    <p id="connStatus" class="status">Not connected yet.</p>
+  </section>
+
+  <section id="s1">
+    <h2>1. Mic</h2>
+    <button id="micFacts">Save phone info</button>
+    <label>Format
+      <select id="formatSel">
+        <option value="auto" selected>Auto</option>
+        <option value="mp4">MP4 (AAC)</option>
+        <option value="webm">WebM (Opus)</option>
+      </select>
+    </label>
+    <button id="wakeToggle" class="secondary">Keep screen awake: off</button>
+    <p class="hint">Read the script out loud. Tap the same button again to stop.</p>
+    <button id="rec1min" data-label="oneMin" class="rec">1-min script</button>
+    <button id="rec5min" data-label="fiveMin" class="rec">5-min script</button>
+    <button id="recNatural" data-label="natural" class="rec">Natural (own words)</button>
+    <audio id="playback" controls></audio>
+    <button id="lockTest">Lock-screen test (60 s)</button>
+    <button id="callTest">Call / app-switch test (60 s)</button>
+    <button id="recoverLast" class="secondary">Recover last recording</button>
+    <p id="micStatus" class="status"></p>
+  </section>
+
+  <section id="s2">
+    <h2>2. Send to Gemini</h2>
+    <label>Recording<select id="takeSel"></select></label>
+    <label>Model
+      <select id="modelSel">
+        <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite</option>
+        <option value="gemini-3.8-flash">gemini-3.8-flash</option>
+      </select>
+    </label>
+    <label>Variant
+      <select id="variantSel">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </label>
+    <label>Thinking
+      <select id="thinkingSel">
+        <option value="">default</option>
+        <option value="low">low</option>
+      </select>
+    </label>
+    <button id="sendGemini">Send to Gemini</button>
+    <button id="phKeyCheck" class="secondary">Philippines key check (1 call)</button>
+    <p id="geminiStatus" class="status"></p>
+    <pre id="geminiOut"></pre>
+  </section>
+
+  <section id="s3">
+    <h2>3. Keyboard dictation</h2>
+    <p class="hint">Tap a box, then the mic key on the Apple keyboard. Or tap Dictate.</p>
+    <label>Morning Task<textarea id="amTask" autocapitalize="sentences" spellcheck="true" inputmode="text" rows="2"></textarea></label>
+    <button id="amTaskDictate" class="secondary">Dictate (Safari speech, en-PH)</button>
+    <label>Morning Details<textarea id="amDetails" autocapitalize="sentences" spellcheck="true" inputmode="text" rows="3"></textarea></label>
+    <button id="amDetailsDictate" class="secondary">Dictate (Safari speech, en-PH)</button>
+    <label>Afternoon Task<textarea id="pmTask" autocapitalize="sentences" spellcheck="true" inputmode="text" rows="2"></textarea></label>
+    <button id="pmTaskDictate" class="secondary">Dictate (Safari speech, en-PH)</button>
+    <label>Afternoon Details<textarea id="pmDetails" autocapitalize="sentences" spellcheck="true" inputmode="text" rows="3"></textarea></label>
+    <button id="pmDetailsDictate" class="secondary">Dictate (Safari speech, en-PH)</button>
+    <button id="speechAvail" class="secondary">Check on-device speech</button>
+    <button id="dayTimer">Start full-day timer</button>
+    <label class="check"><input id="chkKbMic" type="checkbox"> Keyboard mic worked in all 4 boxes</label>
+    <label class="check"><input id="chkPunct" type="checkbox"> Punctuation/capitals OK</label>
+    <label class="check"><input id="chkAirplane" type="checkbox"> Works in airplane mode</label>
+    <label class="check"><input id="chkInApp" type="checkbox"> Works in the home-screen app (not only Safari)</label>
+    <label>Dictation language shown on keyboard<input id="dictLang" type="text"></label>
+    <button id="saveChecks">Add these checks</button>
+    <p id="s3Status" class="status"></p>
+  </section>
+
+  <section id="s4">
+    <h2>4. Upload test</h2>
+    <label>Network
+      <select id="networkSel">
+        <option value="mobile">Mobile data</option>
+        <option value="wifi">Wi-Fi</option>
+      </select>
+    </label>
+    <div class="row">
+      <button id="mb01" data-mb="0.1">0.1 MB</button>
+      <button id="mb16" data-mb="1.6">1.6 MB</button>
+      <button id="mb2" data-mb="2">2 MB</button>
+      <button id="mb7" data-mb="7">7 MB</button>
+      <button id="mb12" data-mb="12">12 MB</button>
+    </div>
+    <button id="allSizes">All sizes</button>
+    <button id="wrongToken" class="secondary">Wrong token test</button>
+    <button id="throwUncaught" class="secondary">Server error test</button>
+    <label>/dev link<input id="devUrl" type="url" autocomplete="off" placeholder="Paste the /dev link"></label>
+    <button id="devTest" class="secondary">/dev link test</button>
+    <button id="pingX5">Ping 5 times</button>
+    <p id="s4Status" class="status"></p>
+  </section>
+
+  <section id="s6">
+    <h2>6. Storage</h2>
+    <p class="hint">In the home-screen app: tap <b>Ask to keep data</b>, then <b>Write test data</b>. Swipe the app away, open it again from the home screen, tap <b>Check test data</b>. Also tap <b>Check test data</b> once in the Safari tab (it should find nothing there).</p>
+    <button id="persistAsk">Ask to keep data</button>
+    <button id="writeMarker">Write test data</button>
+    <button id="checkMarker">Check test data</button>
+    <p id="s6Status" class="status"></p>
+  </section>
+
+  <section id="s7">
+    <h2>7. Photo</h2>
+    <p class="hint">Photos stay on the phone. Nothing is uploaded.</p>
+    <label>Take photo<input id="photoCam" type="file" accept="image/*" capture="environment"></label>
+    <label>Choose from library<input id="photoLib" type="file" accept="image/*"></label>
+    <img id="photoPreview" alt="JPEG preview">
+    <label class="check"><input id="chkUpright" type="checkbox"> Photo is upright</label>
+    <label class="check"><input id="chkColours" type="checkbox"> Colours look right</label>
+    <button id="savePhotoChecks">Add photo checks</button>
+    <p id="s7Status" class="status"></p>
+  </section>
+
+  <section id="results">
+    <h2>Results</h2>
+    <button id="saveResults" class="primary">Save results</button>
+    <p id="saveStatus" class="status"></p>
+    <p id="logCount">0 results</p>
+    <ol id="logList"></ol>
+  </section>
+
+  <script type="module" src="spike.js"></script>
+</body>
+</html>
